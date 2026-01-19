@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Memory Game - Play</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body { margin:0; font-family: Arial, sans-serif; background: #e0f7fa; text-align: center; }
+  #game-container { position: relative; width: 400px; height: 400px; margin: 50px auto; background: #fff; border: 3px solid #00acc1; border-radius: 10px; }
+  #player { width: 40px; height: 40px; position: absolute; background: #ff5722; border-radius: 50%; top: 180px; left: 180px; }
+  .coin { width: 20px; height: 20px; position: absolute; background: gold; border-radius: 50%; }
+  #score { font-size: 20px; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Fun Memory Game</h1>
+<p>Use arrow keys to move and collect coins!</p>
+<div id="score">Score: 0</div>
+<div id="game-container">
+  <div id="player"></div>
+</div>
+
+<script>
+const container = document.getElementById('game-container');
+const player = document.getElementById('player');
+const scoreDisplay = document.getElementById('score');
+let score = 0;
+
+// Initial player position
+let playerPos = { x: 180, y: 180 };
+
+// Create coins
+const coins = [];
+for(let i=0; i<5; i++) {
+  const coin = document.createElement('div');
+  coin.classList.add('coin');
+  coin.style.top = Math.floor(Math.random()*380) + 'px';
+  coin.style.left = Math.floor(Math.random()*380) + 'px';
+  container.appendChild(coin);
+  coins.push(coin);
+}
+
+// Move player
+document.addEventListener('keydown', (e) => {
+  switch(e.key) {
+    case 'ArrowUp': playerPos.y -= 20; break;
+    case 'ArrowDown': playerPos.y += 20; break;
+    case 'ArrowLeft': playerPos.x -= 20; break;
+    case 'ArrowRight': playerPos.x += 20; break;
+  }
+  // Keep player inside container
+  playerPos.x = Math.max(0, Math.min(360, playerPos.x));
+  playerPos.y = Math.max(0, Math.min(360, playerPos.y));
+  player.style.left = playerPos.x + 'px';
+  player.style.top = playerPos.y + 'px';
+  checkCoinCollision();
+});
+
+// Check collision with coins
+function checkCoinCollision() {
+  coins.forEach((coin, index) => {
+    const coinPos = { x: parseInt(coin.style.left), y: parseInt(coin.style.top) };
+    if(Math.abs(playerPos.x - coinPos.x) < 20 && Math.abs(playerPos.y - coinPos.y) < 20) {
+      // Coin collected
+      score++;
+      scoreDisplay.textContent = 'Score: ' + score;
+      // Move coin to a new random position
+      coin.style.top = Math.floor(Math.random()*380) + 'px';
+      coin.style.left = Math.floor(Math.random()*380) + 'px';
+    }
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fun Kids Game - Pay to Play</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+
+<!-- Landing / Payment Page -->
+<div id="landing" style="text-align:center; padding:20px;">
+  <h1>Fun Memory Game</h1>
+  <img src="A_2D_digital_illustration_displays_a_children's_we.png" alt="Fun Memory Game" style="max-width:100%; height:auto;">
+  <p>Enter Parent Email:</p>
+  <input type="email" id="parentEmail" placeholder="Parent Email" style="padding:8px; width:80%; margin-bottom:10px;">
+  <p>Enter Child Username:</p>
+  <input type="text" id="childName" placeholder="Child Name" style="padding:8px; width:80%; margin-bottom:10px;">
+  <br>
+  <button id="payButton" style="padding:10px 20px; font-size:16px; cursor:pointer;">Pay $4.99 to Play</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
